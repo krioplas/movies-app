@@ -1,0 +1,36 @@
+@font-face {
+  font-family: "Inter-Medium";
+  src: url("../../fonts/Inter-Medium.ttf");
+}
+.comp_poster {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 36px;
+  width: 451px;
+  height: 279px;
+  box-shadow: 1px 4px 15px 0px rgba(0, 0, 0, 0.2);
+}
+.info_poster {
+  font-family: "Inter-Medium";
+  padding: 0 20px;
+}
+.overview_film {
+  font-size: 12px;
+}
+.date_release {
+  display: block;
+  font-size: 12px;
+  color: #827e7e;
+}
+.rectangle {
+  font-family: "Inter-Medium";
+  color: rgba(0, 0, 0, 0.65);
+  width: 46px;
+  height: 20px;
+  border-radius: 2px;
+  border: 0.5px #d9d9d9 solid;
+  margin: 8px;
+  padding-top: 2px;
+  font-size: 12px;
+  text-align: center;
+}
