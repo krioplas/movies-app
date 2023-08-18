@@ -3,11 +3,20 @@
   text-align: center;
 }
 .search_input {
-  width: 100%;
+  width: 958px;
   height: 40px;
   text-align: left;
   padding-left: 12px;
   font-size: 16px;
   border-radius: 4px;
   border: solid 1px #d9d9d9;
+}
+.tabs {
+  width: 109px;
+}
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

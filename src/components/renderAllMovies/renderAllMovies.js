@@ -5,8 +5,15 @@ import Loader from "../loader/loader";
 import AlertMessage from "../errorComponent/error";
 
 export default class RenderAllMovies extends React.Component {
+  state = {
+    error: false,
+  };
+  componentDidCatch() {
+    this.setState({ error: true });
+  }
+
   render() {
-    let { title, loading, error } = this.props;
+    let { title, loading, error, onRate } = this.props;
     if (loading) {
       return <Loader />;
     }
@@ -14,7 +21,12 @@ export default class RenderAllMovies extends React.Component {
     return (
       <div className="film_box">
         {errorMessage}
-        <DataMovies title={title} loading={loading} />
+        <DataMovies
+          title={title}
+          loading={loading}
+          onRate={onRate}
+          guestSessionId={this.props.guestSessionId}
+        />
       </div>
     );
   }

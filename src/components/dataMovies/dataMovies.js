@@ -1,6 +1,10 @@
 import React from "react";
 import { format } from "date-fns";
 import "./dataMovies.css";
+import { Rate } from "antd/es";
+import Genres from "../genres/genres";
+import addRating from "../../services/addRating";
+import VoteAverage from "../voteAverage/voteAverage";
 
 export default class DataMovies extends React.Component {
   correctOverview = (text) => {
@@ -11,6 +15,7 @@ export default class DataMovies extends React.Component {
     }
     return text;
   };
+
   render() {
     const { title } = this.props;
     return title.map((el) => {
@@ -21,6 +26,12 @@ export default class DataMovies extends React.Component {
       } else {
         releaseDate = "Нет данных";
       }
+      let onChange = (gride) => {
+        this.props.onRate(gride);
+        addRating(el.id, this.props.guestSessionId, gride);
+        this.setState({ grade: gride });
+      };
+      const valueColor = ["#E90000", "#E97E00", "#E9D100", "#66E900"];
       return (
         <div className="comp_poster" key={el.id}>
           <img
@@ -33,14 +44,26 @@ export default class DataMovies extends React.Component {
             className="image_poster"
           />
           <div className="info_poster">
-            <h3>{el.title}</h3>
+            <div className="info_head">
+              <span className="info_header">{el.title}</span>
+              <VoteAverage value={el.vote_average} />
+            </div>
             <span className="date_release">{releaseDate}</span>
-            <div>
-              <div className="rectangle">Action</div>
+            <div className="genres">
+              <Genres genreIds={el.genre_ids} />
             </div>
             <span className="overview_film">
               {this.correctOverview(el.overview)}
             </span>
+            <br />
+            <div className="rate">
+              <Rate
+                allowHalf
+                onChange={onChange}
+                count={10}
+                defaultValue={el.rating}
+              />
+            </div>
           </div>
         </div>
       );

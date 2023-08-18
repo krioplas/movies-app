@@ -1,0 +1,13 @@
+.rectangle {
+  font-family: "Inter-Medium";
+  color: rgba(0, 0, 0, 0.65);
+  width: auto;
+  height: 15px;
+  border-radius: 2px;
+  border: 0.5px #d9d9d9 solid;
+  margin: 5px;
+  margin-left: 0;
+  padding: 3px;
+  font-size: 12px;
+  text-align: center;
+}

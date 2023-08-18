@@ -1,0 +1,22 @@
+.range_radius {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  width: 30px;
+  height: 30px;
+  font-size: 14px;
+  border-radius: 50%;
+}
+.color1 {
+  border: solid 2px #e90000;
+}
+.color2 {
+  border: solid 2px #e97e00;
+}
+.color3 {
+  border: solid 2px #e9d100;
+}
+.color4 {
+  border: solid 2px #66e900;
+}

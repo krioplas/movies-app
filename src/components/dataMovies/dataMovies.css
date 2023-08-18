@@ -6,31 +6,41 @@
   display: flex;
   justify-content: space-between;
   margin-top: 36px;
-  width: 451px;
-  height: 279px;
+  width: 490px;
+  height: 280px;
   box-shadow: 1px 4px 15px 0px rgba(0, 0, 0, 0.2);
 }
 .info_poster {
+  position: relative;
   font-family: "Inter-Medium";
   padding: 0 20px;
 }
+.info_head {
+  display: flex;
+  width: 100%;
+}
 .overview_film {
+  display: block;
   font-size: 12px;
+  margin-top: 16px;
 }
 .date_release {
   display: block;
   font-size: 12px;
   color: #827e7e;
 }
-.rectangle {
-  font-family: "Inter-Medium";
-  color: rgba(0, 0, 0, 0.65);
-  width: 46px;
-  height: 20px;
-  border-radius: 2px;
-  border: 0.5px #d9d9d9 solid;
-  margin: 8px;
-  padding-top: 2px;
-  font-size: 12px;
-  text-align: center;
+
+.info_header {
+  width: 90%;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.rate {
+  position: absolute;
+  bottom: 10px;
 }
