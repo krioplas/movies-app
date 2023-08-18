@@ -1,5 +1,6 @@
 import React from "react";
 import { format } from "date-fns";
+import PropTypes from "prop-types";
 import "./dataMovies.css";
 import { Rate } from "antd/es";
 import Genres from "../genres/genres";
@@ -17,6 +18,7 @@ export default class DataMovies extends React.Component {
   };
 
   render() {
+    console.log(this.props);
     const { title } = this.props;
     return title.map((el) => {
       let image = `https://image.tmdb.org/t/p/original${el.poster_path}`;
@@ -29,9 +31,7 @@ export default class DataMovies extends React.Component {
       let onChange = (gride) => {
         this.props.onRate(gride);
         addRating(el.id, this.props.guestSessionId, gride);
-        this.setState({ grade: gride });
       };
-      const valueColor = ["#E90000", "#E97E00", "#E9D100", "#66E900"];
       return (
         <div className="comp_poster" key={el.id}>
           <img
@@ -70,3 +70,16 @@ export default class DataMovies extends React.Component {
     });
   }
 }
+DataMovies.propTypes = {
+  onRate: PropTypes.func,
+  title: PropTypes.array,
+  loading: PropTypes.bool,
+  guestSessionId: PropTypes.string,
+};
+
+DataMovies.defaultProps = {
+  onRate: () => {},
+  title: [],
+  loading: false,
+  guestSessionId: "",
+};

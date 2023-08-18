@@ -3,6 +3,7 @@ import DataMovies from "../dataMovies/dataMovies";
 import "./renderAllMovies.css";
 import Loader from "../loader/loader";
 import AlertMessage from "../errorComponent/error";
+import PropTypes from "prop-types";
 
 export default class RenderAllMovies extends React.Component {
   state = {
@@ -31,3 +32,18 @@ export default class RenderAllMovies extends React.Component {
     );
   }
 }
+RenderAllMovies.propTypes = {
+  onRate: PropTypes.func,
+  title: PropTypes.array,
+  loading: PropTypes.bool,
+  guestSessionId: PropTypes.string,
+  error: PropTypes.bool,
+};
+
+RenderAllMovies.defaultProps = {
+  onRate: () => {},
+  title: [],
+  loading: false,
+  error: false,
+  guestSessionId: "",
+};

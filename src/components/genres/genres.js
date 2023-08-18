@@ -1,5 +1,6 @@
 import React from "react";
 import "./genres.css";
+import PropTypes from "prop-types";
 import { ApiGenresConsumer } from "../context/context";
 
 export default class Genres extends React.Component {
@@ -18,10 +19,17 @@ export default class Genres extends React.Component {
                 </div>
               );
             }
-            return;
+            return genre;
           });
         }}
       </ApiGenresConsumer>
     );
   }
 }
+Genres.propTypes = {
+  genreIds: PropTypes.array,
+};
+
+Genres.defaultProps = {
+  genreIds: [],
+};

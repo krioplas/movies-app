@@ -1,5 +1,6 @@
 import React from "react";
 import "./voteAverage.css";
+import PropTypes from "prop-types";
 export default class VoteAverage extends React.Component {
   color;
   render() {
@@ -15,3 +16,10 @@ export default class VoteAverage extends React.Component {
     return <div className={this.color}>{this.props.value.toFixed(1)}</div>;
   }
 }
+VoteAverage.propTypes = {
+  value: PropTypes.number,
+};
+
+VoteAverage.defaultProps = {
+  value: 0,
+};

@@ -3,6 +3,7 @@ import "./appHeader.css";
 import { debounce } from "lodash";
 import "../../services/apiService";
 import { Tabs } from "antd";
+import PropTypes from "prop-types";
 const items = [
   {
     key: "1",
@@ -55,4 +56,12 @@ export default class AppHeader extends React.Component {
   }
 }
 
-//
+AppHeader.propTypes = {
+  onLabel: PropTypes.func,
+  onTabs: PropTypes.func,
+};
+
+AppHeader.defaultProps = {
+  onLabel: () => {},
+  onTabs: () => {},
+};

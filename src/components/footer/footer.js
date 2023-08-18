@@ -1,5 +1,6 @@
 import React from "react";
 import { Pagination } from "antd/es";
+import PropTypes from "prop-types";
 import "./footer.css";
 
 export default class ButtonFooter extends React.Component {
@@ -23,3 +24,16 @@ export default class ButtonFooter extends React.Component {
     );
   }
 }
+ButtonFooter.propTypes = {
+  onFooterPage: PropTypes.func,
+  totalRes: PropTypes.number,
+  label: PropTypes.string,
+  loading: PropTypes.bool,
+};
+
+ButtonFooter.defaultProps = {
+  onFooterPage: () => {},
+  label: "",
+  loading: false,
+  totalRes: 0,
+};
