@@ -19,6 +19,7 @@ export default class AppHeader extends React.Component {
     key: "1",
   };
   onTaskChange = (e) => {
+    e.preventDefault();
     this.props.onLabel(e.target.value);
   };
 
