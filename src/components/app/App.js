@@ -49,7 +49,6 @@ export default class App extends React.Component {
       this.state.page !== prevState.page ||
       this.state.tabs !== prevState.tabs
     ) {
-      console.log(this.state.title);
       this.setState({ loading: true });
       this.services
         .getResource(this.state.page, this.state.label)
@@ -70,6 +69,7 @@ export default class App extends React.Component {
               ratedTitleTotal: res.total_results,
             });
           })
+
           .catch(this.onError);
       }
     }
@@ -94,7 +94,6 @@ export default class App extends React.Component {
       this.titleMovies = this.state.title;
       this.ratedTitleTotal = this.state.totalRes;
     }
-
     return (
       <ApiGenresProvider value={genres}>
         <div className="app">
@@ -121,8 +120,6 @@ export default class App extends React.Component {
             onFooterPage={(page) => {
               this.onFooterPage(page);
             }}
-            label={this.state.label}
-            loading={this.state.loading}
             totalRes={this.ratedTitleTotal}
           />
         </div>

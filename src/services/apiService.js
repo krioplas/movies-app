@@ -21,7 +21,7 @@ export default class apiService {
   }
   async ratedMovies(guestSessionId, page) {
     const response = await fetch(
-      `${url}/guest_session/${guestSessionId}/rated/movies?${apiKey}&page=${page}language=en-US&page=1&sort_by=created_at.asc`
+      `${url}/guest_session/${guestSessionId}/rated/movies?${apiKey}&language=en-US&page=${page}&sort_by=created_at.asc`
     );
     if (!response.ok) {
       throw new Error(`Could not fetch, received ${response.status}`);

@@ -19,7 +19,7 @@ export default class DataMovies extends React.Component {
   };
 
   render() {
-    const { title } = this.props;
+    const { title, onError } = this.props;
     return title.map((el) => {
       let image = `https://image.tmdb.org/t/p/original${el.poster_path}`;
       let releaseDate = "";
@@ -30,7 +30,9 @@ export default class DataMovies extends React.Component {
       }
       let onChange = (gride) => {
         this.props.onRate(gride);
-        this.services.addRating(el.id, this.props.guestSessionId, gride);
+        this.services
+          .addRating(el.id, this.props.guestSessionId, gride)
+          .catch(onError);
       };
       return (
         <div className="comp_poster" key={el.id}>

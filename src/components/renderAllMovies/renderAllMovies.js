@@ -14,7 +14,7 @@ export default class RenderAllMovies extends React.Component {
   }
 
   render() {
-    let { title, loading, error, onRate } = this.props;
+    let { title, loading, error, onRate, onError } = this.props;
     if (loading) {
       return <Loader />;
     }
@@ -27,6 +27,7 @@ export default class RenderAllMovies extends React.Component {
           loading={loading}
           onRate={onRate}
           guestSessionId={this.props.guestSessionId}
+          onError={onError}
         />
       </div>
     );

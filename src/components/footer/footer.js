@@ -8,8 +8,8 @@ export default class ButtonFooter extends React.Component {
     this.props.onFooterPage(page);
   };
   render() {
-    let { label, loading, totalRes } = this.props;
-    if (label === "" && loading === false) {
+    let { totalRes } = this.props;
+    if (totalRes === 0) {
       return null;
     }
     return (

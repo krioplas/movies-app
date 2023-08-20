@@ -14,7 +14,6 @@ async function getMovieList() {
   if (!response.ok) {
     throw new Error(`Could not fetch, received ${response.status}`);
   }
-  console.log(response.ok);
   const body = await response.json();
   return body;
 }
