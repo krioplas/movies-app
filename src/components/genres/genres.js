@@ -1,11 +1,12 @@
-import React from "react";
-import "./genres.css";
-import PropTypes from "prop-types";
-import { ApiGenresConsumer } from "../context/context";
+import React from 'react';
+import './genres.css';
+import PropTypes from 'prop-types';
+
+import { ApiGenresConsumer } from '../context/context';
 
 export default class Genres extends React.Component {
   render() {
-    let { genreIds } = this.props;
+    const { genreIds } = this.props;
     return (
       <ApiGenresConsumer>
         {(genres) => {
@@ -27,7 +28,7 @@ export default class Genres extends React.Component {
   }
 }
 Genres.propTypes = {
-  genreIds: PropTypes.array,
+  genreIds: PropTypes.arrayOf(PropTypes.number),
 };
 
 Genres.defaultProps = {

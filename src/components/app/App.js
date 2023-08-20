@@ -1,57 +1,50 @@
-import React from "react";
-import apiService from "../../services/apiService";
-import "./App.css";
+import React from 'react';
 
-import AppHeader from "../appHeader/appHeader";
-import RenderAllMovies from "../renderAllMovies/renderAllMovies";
-import ButtonFooter from "../footer/footer";
-import { genres } from "../../services/apiGenres";
-import { ApiGenresProvider } from "../context/context";
+import ApiService from '../../services/apiService';
+import './App.css';
+import AppHeader from '../appHeader/appHeader';
+import RenderAllMovies from '../renderAllMovies/renderAllMovies';
+import ButtonFooter from '../footer/footer';
+import genres from '../../services/apiGenres';
+import { ApiGenresProvider } from '../context/context';
 
 export default class App extends React.Component {
-  state = {
-    title: [],
-    ratedTitle: [],
-    genres: {},
-    label: "",
-    loading: true,
-    error: false,
-    page: 1,
-    rate: 0,
-    totalRes: 0,
-    ratedTitleTotal: 0,
-    guest_session_id: "",
-    tabs: "1",
-  };
-  services = new apiService();
   titleMovies;
+
   ratedTitleTotal;
-  onFooterPage = (footPage) => {
-    this.setState({
-      page: footPage,
-    });
-  };
-  onTabs = (value) => {
-    this.setState({
-      tabs: value,
-    });
-  };
+
+  services = new ApiService();
+
+  constructor() {
+    super();
+    this.state = {
+      title: [],
+      ratedTitle: [],
+      label: '',
+      loading: true,
+      error: false,
+      page: 1,
+      totalRes: 0,
+      ratedTitleTotal: 0,
+      guestSessionId: '',
+      tabs: '1',
+    };
+  }
+
   componentDidMount() {
     this.setState({ loading: false });
-    if (!localStorage.getItem("guestSessionId")) {
+    if (!localStorage.getItem('guestSessionId')) {
       this.services.guestSession().catch(this.onError);
     }
-    this.setState({ guest_session_id: localStorage.getItem("guestSessionId") });
+    this.setState({ guestSessionId: localStorage.getItem('guestSessionId') });
   }
+
   componentDidUpdate(prevProps, prevState) {
-    if (
-      this.state.label !== prevState.label ||
-      this.state.page !== prevState.page ||
-      this.state.tabs !== prevState.tabs
-    ) {
+    const { label, page, tabs, guestSessionId } = this.state;
+    if (label !== prevState.label || page !== prevState.page || tabs !== prevState.tabs) {
       this.setState({ loading: true });
       this.services
-        .getResource(this.state.page, this.state.label)
+        .getResource(page, label)
         .then((res) => {
           this.setState({
             title: res.results,
@@ -60,9 +53,9 @@ export default class App extends React.Component {
           });
         })
         .catch(this.onError);
-      if (this.state.guest_session_id !== "") {
+      if (guestSessionId !== '') {
         this.services
-          .ratedMovies(this.state.guest_session_id, this.state.page)
+          .ratedMovies(guestSessionId, page)
           .then((res) => {
             this.setState({
               ratedTitle: res.results,
@@ -75,24 +68,36 @@ export default class App extends React.Component {
     }
   }
 
+  onTabs = (value) => {
+    this.setState({
+      tabs: value,
+    });
+  };
+
+  onFooterPage = (footPage) => {
+    this.setState({
+      page: footPage,
+    });
+  };
+
   onLabel = (text) => {
     this.setState({
       label: text,
     });
   };
-  onRate = (grade) => {
-    this.setState({ rate: grade });
-  };
-  onError = (err) => {
+
+  onError = () => {
     this.setState({ error: true, loading: false });
   };
+
   render() {
-    if (this.state.tabs !== "1") {
-      this.titleMovies = this.state.ratedTitle;
-      this.ratedTitleTotal = this.state.ratedTitleTotal;
+    const { tabs, ratedTitleTotal, ratedTitle, title, totalRes, error, loading, guestSessionId } = this.state;
+    if (tabs !== '1') {
+      this.titleMovies = ratedTitle;
+      this.ratedTitleTotal = ratedTitleTotal;
     } else {
-      this.titleMovies = this.state.title;
-      this.ratedTitleTotal = this.state.totalRes;
+      this.titleMovies = title;
+      this.ratedTitleTotal = totalRes;
     }
     return (
       <ApiGenresProvider value={genres}>
@@ -108,13 +113,10 @@ export default class App extends React.Component {
           <RenderAllMovies
             onError={this.onError}
             title={this.titleMovies}
-            error={this.state.error}
-            loading={this.state.loading}
-            onRate={(grade) => {
-              this.onRate(grade);
-            }}
-            tabs={this.state.tabs}
-            guestSessionId={this.state.guest_session_id}
+            error={error}
+            loading={loading}
+            tabs={tabs}
+            guestSessionId={guestSessionId}
           />
           <ButtonFooter
             onFooterPage={(page) => {
