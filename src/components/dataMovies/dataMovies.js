@@ -4,10 +4,11 @@ import PropTypes from "prop-types";
 import "./dataMovies.css";
 import { Rate } from "antd/es";
 import Genres from "../genres/genres";
-import addRating from "../../services/addRating";
+import apiService from "../../services/apiService";
 import VoteAverage from "../voteAverage/voteAverage";
 
 export default class DataMovies extends React.Component {
+  services = new apiService();
   correctOverview = (text) => {
     if (text.length > 100) {
       let resText = text.split(" ", 20);
@@ -18,7 +19,6 @@ export default class DataMovies extends React.Component {
   };
 
   render() {
-    console.log(this.props);
     const { title } = this.props;
     return title.map((el) => {
       let image = `https://image.tmdb.org/t/p/original${el.poster_path}`;
@@ -30,7 +30,7 @@ export default class DataMovies extends React.Component {
       }
       let onChange = (gride) => {
         this.props.onRate(gride);
-        addRating(el.id, this.props.guestSessionId, gride);
+        this.services.addRating(el.id, this.props.guestSessionId, gride);
       };
       return (
         <div className="comp_poster" key={el.id}>

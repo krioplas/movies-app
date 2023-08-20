@@ -1,20 +1,20 @@
+const apiKey = "api_key=84d19048fb3eea3b91e72954a29640ec";
 const options = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NGQxOTA0OGZiM2VlYTNiOTFlNzI5NTRhMjk2NDBlYyIsInN1YiI6IjY0Y2YwNTY2NmQ0Yzk3MDBjYjdkZjAwMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.p_RcO3gorq2aFEMHrV3rkW8ajlSz-O28V7lfN9ttvAE",
   },
 };
 
 async function getMovieList() {
   const response = await fetch(
-    "https://api.themoviedb.org/3/genre/movie/list?language=ru",
+    `https://api.themoviedb.org/3/genre/movie/list?language=ru&${apiKey}`,
     options
   );
   if (!response.ok) {
     throw new Error(`Could not fetch, received ${response.status}`);
   }
+  console.log(response.ok);
   const body = await response.json();
   return body;
 }

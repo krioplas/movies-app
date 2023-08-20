@@ -7,8 +7,6 @@ import RenderAllMovies from "../renderAllMovies/renderAllMovies";
 import ButtonFooter from "../footer/footer";
 import { genres } from "../../services/apiGenres";
 import { ApiGenresProvider } from "../context/context";
-import guestSession from "../../services/guestSession";
-import ratedMovies from "../../services/ratedMovies";
 
 export default class App extends React.Component {
   state = {
@@ -25,7 +23,7 @@ export default class App extends React.Component {
     guest_session_id: "",
     tabs: "1",
   };
-  search = new apiService();
+  services = new apiService();
   titleMovies;
   ratedTitleTotal;
   onFooterPage = (footPage) => {
@@ -40,9 +38,10 @@ export default class App extends React.Component {
   };
   componentDidMount() {
     this.setState({ loading: false });
-    guestSession().then((resolve) => {
-      this.setState({ guest_session_id: resolve.guest_session_id });
-    });
+    if (!localStorage.getItem("guestSessionId")) {
+      this.services.guestSession().catch(this.onError);
+    }
+    this.setState({ guest_session_id: localStorage.getItem("guestSessionId") });
   }
   componentDidUpdate(prevProps, prevState) {
     if (
@@ -52,8 +51,8 @@ export default class App extends React.Component {
     ) {
       console.log(this.state.title);
       this.setState({ loading: true });
-      this.search
-        .getAllFilms(this.state.page, this.state.label)
+      this.services
+        .getResource(this.state.page, this.state.label)
         .then((res) => {
           this.setState({
             title: res.results,
@@ -63,14 +62,15 @@ export default class App extends React.Component {
         })
         .catch(this.onError);
       if (this.state.guest_session_id !== "") {
-        ratedMovies(this.state.guest_session_id, this.state.page).then(
-          (res) => {
+        this.services
+          .ratedMovies(this.state.guest_session_id, this.state.page)
+          .then((res) => {
             this.setState({
               ratedTitle: res.results,
               ratedTitleTotal: res.total_results,
             });
-          }
-        );
+          })
+          .catch(this.onError);
       }
     }
   }
